@@ -31,18 +31,18 @@ static void writeHex(unsigned int swNum){
 static void writeDec(unsigned int swiNum){
    unsigned int temp = swiNum << 12;
    temp = temp >> 12;
-   if (temp > 9) { temp = 9; }
+   temp = (unsigned int)(((double)temp / 16.0)*10);
    WrampParallel->LowerRightSSD = temp;
    temp = swiNum << 8;
    temp = temp >> 12;
-   if (temp > 9) { temp = 9; }
+   temp = (unsigned int)(((double)temp / 16.0)*10);
    WrampParallel->LowerLeftSSD = temp;
    temp = swiNum << 4;
    temp = temp >> 12;
-   if (temp > 9) { temp = 9; }
+   temp = (unsigned int)(((double)temp / 16.0)*10);
    WrampParallel->UpperRightSSD = temp;
    temp = swiNum >> 12;
-   if (temp > 9) { temp = 9; }
+   temp = (unsigned int)(((double)temp / 16.0)*10);
    WrampParallel->UpperLeftSSD = temp;
    return;
 }
