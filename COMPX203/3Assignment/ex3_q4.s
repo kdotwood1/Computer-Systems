@@ -1,13 +1,16 @@
 .text
 .global main
 main:
+   subui $sp, $sp, 1
+   sw $ra, 1($sp)
    jal serial_job
    jal parallel_job
    bnez $1, fin
    j main
+
 fin:
-   syscall
-jumpb:
+   lw $ra, 1($sp)
+   addui $sp, $sp, 1
    jr $ra
    
 #------------------------
@@ -26,7 +29,7 @@ printchar:
    andi $13, $13, 0x2
    beqz $13, printchar     
    sw $3, 0x70000($0)
-   j jumpb
+   jr $ra
 
 #------------------------
 parallel_job:
@@ -58,6 +61,4 @@ lights:
    j write
 exit:
    addi $1, $0, 1
-   j jumpb
-   
-
+   jr $ra
